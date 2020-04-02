@@ -86,3 +86,25 @@ CREATE TABLE user_info
 
 INSERT INTO user_info(username, password)
 VALUES ('admin', 'admin');
+
+INSERT INTO student(student_id, student_name, age, gender)
+VALUES (1001, '张三', 18, '男'),
+       (1002, '李四', 18, '女'),
+       (1003, '王五', 19, '男');
+
+INSERT INTO subject(subject_id, subject_name, teacher_id)
+VALUES (101, '数学', 11),
+       (102, '语文', 12),
+       (103, '英语', 12);
+
+INSERT INTO teacher(teacher_id, teacher_name)
+VALUES (11, '赵老师'),
+       (12, '韩老师');
+
+INSERT INTO grade(grade_id, subject_id, student_id, score)
+VALUES (1, 101, 1001, 90),
+       (2, 101, 1002, 80),
+       (3, 101, 1003, 85),
+       (4, 102, 1001, 80),
+       (5, 102, 1002, 70),
+       (6, 103, 1003, 60);
