@@ -1,10 +1,13 @@
 package userRepository;
 
+import entities.Student;
 import entities.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class QueryHandler {
     public static User getUserByNameAndPassword(String input) {
@@ -41,6 +44,32 @@ public class QueryHandler {
         } finally {
             DatabaseUtil.releaseSource(connection, preparedStatement, resultSet);
         }
+    }
+
+    public static List<Student> getAllStudents() {
+        Connection connection = DatabaseUtil.connectToDB();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<Student> allStudents = new ArrayList<>();
+        try {
+            String sqlQuery = "SELECT " +
+                    "student_id,student_name,age,gender" +
+                    " FROM student";
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                allStudents.add(new Student(
+                        resultSet.getInt("student_id"),
+                        resultSet.getString("student_name"),
+                        resultSet.getInt("age"),
+                        resultSet.getString("gender")));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseUtil.releaseSource(connection, preparedStatement, resultSet);
+        }
+        return allStudents;
     }
 }
 
