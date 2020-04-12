@@ -62,4 +62,12 @@ public class UserService {
         Teacher teacherFound = QueryHandler.getTeacherByName(name);
         return QueryHandler.getSubjectByTeacherId(teacherFound.getId());
     }
+
+    public List<Teacher> getAllTeachers() {
+        return QueryHandler.getAllTeachers();
+    }
+
+    public Teacher getTeacherByName(String name) {
+        return QueryHandler.getTeacherByName(name);
+    }
 }

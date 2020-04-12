@@ -286,6 +286,30 @@ public class QueryHandler {
         return subjects;
     }
 
+    public static List<Teacher> getAllTeachers() {
+        Connection connection = DatabaseUtil.connectToDB();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<Teacher> allTeachers = new ArrayList<>();
+        try {
+            String sqlQuery = "SELECT " +
+                    "teacher_id,teacher_name" +
+                    " FROM teacher";
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                allTeachers.add(new Teacher(
+                        resultSet.getInt("teacher_id"),
+                        resultSet.getString("teacher_name")));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseUtil.releaseSource(connection, preparedStatement, resultSet);
+        }
+        return allTeachers;
+    }
+
     public static Teacher getTeacherByName(String name) {
         Connection connection = DatabaseUtil.connectToDB();
         PreparedStatement preparedStatement = null;

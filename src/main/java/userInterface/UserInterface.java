@@ -109,4 +109,18 @@ public class UserInterface {
                     ", 教师编号： " + subject.getTeacherId());
         }
     }
+
+    public void getAllTeachers() {
+        List<Teacher> allTeachers = userService.getAllTeachers();
+        for (Teacher teacher : allTeachers) {
+            System.out.println("教师编号：" + teacher.getId() +
+                    "，教师姓名： " + teacher.getName());
+        }
+    }
+
+    public void getTeacherByName(String name) {
+        Teacher teacher = userService.getTeacherByName(name);
+        System.out.println("教师编号：" + teacher.getId() +
+                "，教师姓名： " + teacher.getName());
+    }
 }
