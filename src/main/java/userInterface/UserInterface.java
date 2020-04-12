@@ -84,4 +84,13 @@ public class UserInterface {
             getStudentGradeSubjectByStudentName(student.getName());
         }
     }
+
+    public void getAllSubjects() {
+        List<Subject> allSubjects = userService.getAllSubjects();
+        for (Subject subject : allSubjects) {
+            System.out.println("课程编号：" + subject.getId() +
+                    "，课程名： " + subject.getName() +
+                    ", 教师编号： " + subject.getTeacherId());
+        }
+    }
 }

@@ -50,4 +50,8 @@ public class UserService {
         result.put(EntityType.STUDENT_LIST,new ArrayList<>(students));
         return result;
     }
+
+    public List<Subject> getAllSubjects() {
+        return QueryHandler.getAllSubjects();
+    }
 }

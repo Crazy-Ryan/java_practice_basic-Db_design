@@ -183,6 +183,30 @@ public class QueryHandler {
         return allGrades;
     }
 
+    public static List<Subject> getAllSubjects() {
+        Connection connection = DatabaseUtil.connectToDB();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<Subject> allSubjects = new ArrayList<>();
+        try {
+            String sqlQuery = "SELECT " +
+                    "subject_id,subject_name,teacher_id" +
+                    " FROM subject";
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                allSubjects.add(new Subject(
+                        resultSet.getInt("subject_id"),
+                        resultSet.getString("subject_name"),
+                        resultSet.getInt("teacher_id")));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseUtil.releaseSource(connection, preparedStatement, resultSet);
+        }
+        return allSubjects;
+    }
 
     public static Subject getSubjectByName(String name) {
         Connection connection = DatabaseUtil.connectToDB();
