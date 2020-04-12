@@ -102,6 +102,33 @@ public class QueryHandler {
         return student;
     }
 
+    public static Student getStudentById(int id) {
+        Connection connection = DatabaseUtil.connectToDB();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Student student = new Student();
+        try {
+            String sqlQuery = "SELECT " +
+                    "student_id,student_name,age,gender" +
+                    " FROM student WHERE student_id = ?";
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, id);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                student = new Student(
+                        resultSet.getInt("student_id"),
+                        resultSet.getString("student_name"),
+                        resultSet.getInt("age"),
+                        resultSet.getString("gender"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseUtil.releaseSource(connection, preparedStatement, resultSet);
+        }
+        return student;
+    }
+
     public static List<Grade> getGradeByStudentId(int studentId) {
         Connection connection = DatabaseUtil.connectToDB();
         PreparedStatement preparedStatement = null;
@@ -129,29 +156,31 @@ public class QueryHandler {
         return allGrades;
     }
 
-    public static Teacher getTeacherByName(String name) {
+    public static List<Grade> getGradeBySubjectId(int id) {
         Connection connection = DatabaseUtil.connectToDB();
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        Teacher teacher = new Teacher();
+        List<Grade> allGrades = new ArrayList<>();
         try {
             String sqlQuery = "SELECT " +
-                    "teacher_id,teacher_name" +
-                    " FROM teacher WHERE teacher_name = ?";
+                    "grade_id,student_id,subject_id,score" +
+                    " FROM grade WHERE subject_id = ?";
             preparedStatement = connection.prepareStatement(sqlQuery);
-            preparedStatement.setString(1, name);
+            preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                teacher = new Teacher(
-                        resultSet.getInt("teacher_id"),
-                        resultSet.getString("teacher_name"));
+            while (resultSet.next()) {
+                allGrades.add(new Grade(
+                        resultSet.getInt("grade_id"),
+                        resultSet.getInt("student_id"),
+                        resultSet.getInt("subject_id"),
+                        resultSet.getInt("score")));
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             DatabaseUtil.releaseSource(connection, preparedStatement, resultSet);
         }
-        return teacher;
+        return allGrades;
     }
 
 
@@ -206,6 +235,58 @@ public class QueryHandler {
         }
         return subject;
     }
+
+    public static List<Subject> getSubjectByTeacherId(int id) {
+        Connection connection = DatabaseUtil.connectToDB();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<Subject> subjects = new ArrayList<>();
+        try {
+            String sqlQuery = "SELECT " +
+                    "subject_id,subject_name,teacher_id" +
+                    " FROM subject WHERE teacher_id = ?";
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, id);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                subjects.add(new Subject(
+                        resultSet.getInt("subject_id"),
+                        resultSet.getString("subject_name"),
+                        resultSet.getInt("teacher_id")));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseUtil.releaseSource(connection, preparedStatement, resultSet);
+        }
+        return subjects;
+    }
+
+    public static Teacher getTeacherByName(String name) {
+        Connection connection = DatabaseUtil.connectToDB();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Teacher teacher = new Teacher();
+        try {
+            String sqlQuery = "SELECT " +
+                    "teacher_id,teacher_name" +
+                    " FROM teacher WHERE teacher_name = ?";
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, name);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                teacher = new Teacher(
+                        resultSet.getInt("teacher_id"),
+                        resultSet.getString("teacher_name"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseUtil.releaseSource(connection, preparedStatement, resultSet);
+        }
+        return teacher;
+    }
+
 
 }
 

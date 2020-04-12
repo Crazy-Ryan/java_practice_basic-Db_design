@@ -4,6 +4,7 @@ import entities.EntityType;
 import entities.Grade;
 import entities.Student;
 import entities.Subject;
+import entities.Teacher;
 import entities.User;
 import userService.UserService;
 import userRepository.QueryHandler;
@@ -72,6 +73,15 @@ public class UserInterface {
         List<Grade> grades = (List<Grade>) studentGradeSubject.get(EntityType.GRADE_LIST);
         for (int index = 0; index < subjects.size(); index++) {
             System.out.println("科目：" + subjects.get(index).getName() + "，成绩：" + grades.get(index).getScore());
+        }
+    }
+
+    public void getStudentGradeSubjectByTeacherName(String name) {
+        Map<EntityType, Object> teacherStudents = userService.getStudentsByTeacherName(name);
+        List<Student> students = (List<Student>) teacherStudents.get(EntityType.STUDENT_LIST);
+        System.out.println(name + "的所有学生信息及各学生成绩为");
+        for (Student student : students) {
+            getStudentGradeSubjectByStudentName(student.getName());
         }
     }
 }
