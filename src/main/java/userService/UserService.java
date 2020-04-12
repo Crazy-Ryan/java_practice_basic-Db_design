@@ -7,7 +7,6 @@ import entities.Subject;
 import entities.Teacher;
 import userRepository.QueryHandler;
 
-import javax.xml.transform.Result;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -39,19 +38,28 @@ public class UserService {
         Teacher teacherFound = QueryHandler.getTeacherByName(name);
         List<Subject> subjects = QueryHandler.getSubjectByTeacherId(teacherFound.getId());
         Set<Student> students = new HashSet<>();
-        for(Subject subject:subjects){
+        for (Subject subject : subjects) {
             List<Grade> gradesBySubject = QueryHandler.getGradeBySubjectId(subject.getId());
-            for(Grade grade:gradesBySubject){
+            for (Grade grade : gradesBySubject) {
                 Student studentByGradeId = QueryHandler.getStudentById(grade.getStudentId());
                 students.add(studentByGradeId);
             }
         }
-        result.put(EntityType.TEACHER,teacherFound);
-        result.put(EntityType.STUDENT_LIST,new ArrayList<>(students));
+        result.put(EntityType.TEACHER, teacherFound);
+        result.put(EntityType.STUDENT_LIST, new ArrayList<>(students));
         return result;
     }
 
     public List<Subject> getAllSubjects() {
         return QueryHandler.getAllSubjects();
+    }
+
+    public Subject getSubjectByName(String name) {
+        return QueryHandler.getSubjectByName(name);
+    }
+
+    public List<Subject> getSubjectByTeacherName(String name) {
+        Teacher teacherFound = QueryHandler.getTeacherByName(name);
+        return QueryHandler.getSubjectByTeacherId(teacherFound.getId());
     }
 }

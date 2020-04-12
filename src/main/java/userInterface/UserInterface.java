@@ -93,4 +93,20 @@ public class UserInterface {
                     ", 教师编号： " + subject.getTeacherId());
         }
     }
+
+    public void getSubjectByName(String name) {
+        Subject subject = userService.getSubjectByName(name);
+        System.out.println("课程编号：" + subject.getId() +
+                "，课程名： " + subject.getName() +
+                ", 教师编号： " + subject.getTeacherId());
+    }
+
+    public void getSubjectsByTeacherName(String name) {
+        List<Subject> allSubjects = userService.getSubjectByTeacherName(name);
+        for (Subject subject : allSubjects) {
+            System.out.println("课程编号：" + subject.getId() +
+                    "，课程名： " + subject.getName() +
+                    ", 教师编号： " + subject.getTeacherId());
+        }
+    }
 }
