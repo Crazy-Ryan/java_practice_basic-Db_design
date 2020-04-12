@@ -2,7 +2,11 @@ package entities;
 
 public enum EntityType {
     STUDENT,
+    STUDENT_LIST,
     TEACHER,
+    TEACHER_LIST,
     SUBJECT,
-    GRADE
+    SUBJECT_LIST,
+    GRADE,
+    GRADE_LIST
 }
