@@ -42,9 +42,6 @@ public class DatabaseUtil {
         return connection;
     }
 
-    public static void releaseSource(Connection conn, Statement pre) {
-        doubleClose(conn, pre);
-    }
 
     public static void releaseSource(Connection conn, Statement pre, ResultSet res) {
         if (null != res) {
@@ -54,10 +51,10 @@ public class DatabaseUtil {
                 e.printStackTrace();
             }
         }
-        doubleClose(conn, pre);
+        releaseSource(conn, pre);
     }
 
-    private static void doubleClose(Connection conn, Statement pre) {
+    public static void releaseSource(Connection conn, Statement pre) {
         if (null != pre) {
             try {
                 pre.close();
