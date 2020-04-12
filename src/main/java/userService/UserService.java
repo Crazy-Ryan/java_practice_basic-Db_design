@@ -103,7 +103,7 @@ public class UserService {
 
     public Teacher deleteTeacherById(int id) {
         Teacher teacher = QueryHandler.getTeacherById(id);
-        DeleteHandler.deleteStudentById(id);
+        DeleteHandler.deleteTeacherById(id);
         return teacher;
     }
 }

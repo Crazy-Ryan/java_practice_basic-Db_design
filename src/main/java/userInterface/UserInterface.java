@@ -17,8 +17,124 @@ public class UserInterface {
     private UserService userService = new UserService();
 
     public void run() {
-        getAllStudents();
-//        loginHandler();
+        loginHandler();
+        System.out.println("您好，超级管理员，请选择你需要进行的操作：\n" +
+                "    1. 查询   \n" +
+                "      1.1 查询学生信息以及成绩  \n" +
+                "        1.1.1 所有学生信息  \n" +
+                "        1.1.2 指定学生姓名的信息以及所有课程的成绩  \n" +
+                "        1.1.3 指定老师的所有学生及其成绩  \n" +
+                "      1.2 查询课程信息  \n" +
+                "        1.2.1 所有课程信息  \n" +
+                "        1.2.2 指定课程名称的信息  \n" +
+                "        1.2.3 指定老师的所有课程信息   \n" +
+                "      1.3 查询老师信息  \n" +
+                "        1.3.1 所有老师信息  \n" +
+                "        1.3.2 指定老师信息  \n" +
+                "    2. 新增  \n" +
+                "      2.1 新增学生信息  \n" +
+                "      2.2 新增课程信息     \n" +
+                "    3. 修改    \n" +
+                "      3.1 修改指定学生的成绩  \n" +
+                "    4. 删除  \n" +
+                "      4.1 删除指定学生  \n" +
+                "      4.2 删除指定课程  \n" +
+                "      4.3 删除指定老师 ");
+        Scanner scanner = new Scanner(System.in);
+        String choiceStr = scanner.nextLine();
+        String[] choiceArr = choiceStr.split("\\.");
+        int[] choiceInfo = new int[choiceArr.length];
+        for(int index=0;index<choiceArr.length;index++){
+            choiceInfo[index] = Integer.parseInt(choiceArr[index]);
+        }
+        switch (choiceInfo[0]) {
+            case 1:
+                queryHandle(choiceInfo[1],choiceInfo[2]);
+                break;
+            case 2:
+                addHandle(choiceInfo[1]);
+                break;
+            case 3:
+                updateHandle(choiceInfo[1]);
+                break;
+            case 4:
+                deleteHandle(choiceInfo[1]);
+            default:
+        }
+    }
+
+    private void queryHandle(int choice1, int choice2){
+        switch (choice1){
+            case 1:
+                queryStudentHandle(choice2);
+                break;
+            case 2:
+                querySubjectHandle(choice2);
+                break;
+            case 3:
+                queryTeacherHandle(choice2);
+                break;
+            default:
+        }
+    }
+
+    private void queryStudentHandle(int choice){
+        switch (choice){
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+        }
+    }
+
+    private void querySubjectHandle(int choice){
+        switch (choice){
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+        }
+    }
+    private void queryTeacherHandle(int choice){
+        switch (choice){
+            case 1:
+                break;
+            case 2:
+                break;
+            default:
+        }
+    }
+
+    private void addHandle(int choice){
+        switch (choice){
+            case 1:
+                break;
+            case 2:
+                break;
+            default:
+        }
+    }
+
+    private void updateHandle(int choice){
+        if(1 == choice){
+            ;
+        }
+    }
+
+    private void deleteHandle(int choice){
+        switch (choice){
+            case 1:
+                break;
+            case 2:
+                break;
+            default:
+        }
     }
 
     private void loginHandler() {
@@ -156,11 +272,12 @@ public class UserInterface {
         System.out.println("1.是");
         System.out.println("2.否");
         int choice = scanner.nextInt();
-        if(1 == choice){
+        if (1 == choice) {
             Student student = userService.deleteStudentById(id);
             System.out.println("删除学生" + student.getName() + "(学号：" + student.getId() + ")成功！");
         }
     }
+
     public void deleteSubjectById() {
         System.out.println("请输入您需要删除的课程编号：");
         Scanner scanner = new Scanner(System.in);
@@ -169,11 +286,12 @@ public class UserInterface {
         System.out.println("1.是");
         System.out.println("2.否");
         int choice = scanner.nextInt();
-        if(1 == choice){
+        if (1 == choice) {
             Subject subject = userService.deleteSubjectById(id);
             System.out.println("删除课程" + subject.getName() + "(课程编号：" + subject.getId() + ")成功！");
         }
     }
+
     public void deleteTeacherById() {
         System.out.println("请输入您需要删除的教师编号：");
         Scanner scanner = new Scanner(System.in);
@@ -182,7 +300,7 @@ public class UserInterface {
         System.out.println("1.是");
         System.out.println("2.否");
         int choice = scanner.nextInt();
-        if(1 == choice){
+        if (1 == choice) {
             Teacher teacher = userService.deleteTeacherById(id);
             System.out.println("删除教师" + teacher.getName() + "(学号：" + teacher.getId() + ")成功！");
         }
