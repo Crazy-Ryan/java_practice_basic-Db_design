@@ -6,6 +6,7 @@ import entities.Student;
 import entities.Subject;
 import entities.Teacher;
 import userRepository.AddHandler;
+import userRepository.DeleteHandler;
 import userRepository.QueryHandler;
 import userRepository.UpdateHandler;
 
@@ -14,6 +15,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 public class UserService {
@@ -85,5 +87,11 @@ public class UserService {
         Student student = QueryHandler.getStudentByName(studentName);
         Subject subject = QueryHandler.getSubjectByName(subjectName);
         UpdateHandler.updateGradeByStudentIdAndSubject(student.getId(),subject.getId(),score);
+    }
+
+    public Student deleteStudentById(int id){
+        Student student = QueryHandler.getStudentById(id);
+        DeleteHandler.deleteStudentById(id);
+        return student;
     }
 }

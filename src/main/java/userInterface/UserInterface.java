@@ -148,5 +148,18 @@ public class UserInterface {
         userService.updateGrade(inputDetails[0], inputDetails[1], Integer.parseInt(inputDetails[2]));
     }
 
+    public void deleteStudentById() {
+        System.out.println("请输入您需要删除的学生学号：");
+        Scanner scanner = new Scanner(System.in);
+        int id = scanner.nextInt();
+        System.out.println("删除学生之后，该学生信息将不能恢复，是否要继续删除？");
+        System.out.println("1.是");
+        System.out.println("2.否");
+        int choice = scanner.nextInt();
+        if(1 == choice){
+            Student student = userService.deleteStudentById(id);
+            System.out.println("删除学生" + student.getName() + "(学号：" + student.getId() + ")成功！");
+        }
+    }
 
 }
