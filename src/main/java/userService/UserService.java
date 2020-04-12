@@ -7,6 +7,7 @@ import entities.Subject;
 import entities.Teacher;
 import userRepository.AddHandler;
 import userRepository.QueryHandler;
+import userRepository.UpdateHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,5 +79,11 @@ public class UserService {
 
     public void addNewSubject(String name, int teacherId) {
         AddHandler.addNewSubject(new Subject(0, name, teacherId));
+    }
+
+    public void updateGrade(String studentName,String subjectName,int score){
+        Student student = QueryHandler.getStudentByName(studentName);
+        Subject subject = QueryHandler.getSubjectByName(subjectName);
+        UpdateHandler.updateGradeByStudentIdAndSubject(student.getId(),subject.getId(),score);
     }
 }

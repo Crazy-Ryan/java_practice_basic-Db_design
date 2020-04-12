@@ -140,4 +140,13 @@ public class UserInterface {
         userService.addNewSubject(subjectDetails[0], Integer.parseInt(subjectDetails[1]));
     }
 
+    public void updateGrade() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("请输入学生姓名、课程名和课程成绩（格式：学生姓名,课程名,课程成绩）");
+        String inputInfo = scanner.nextLine();
+        String[] inputDetails = inputInfo.split(",");
+        userService.updateGrade(inputDetails[0], inputDetails[1], Integer.parseInt(inputDetails[2]));
+    }
+
+
 }
