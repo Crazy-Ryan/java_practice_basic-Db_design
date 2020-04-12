@@ -123,4 +123,21 @@ public class UserInterface {
         System.out.println("教师编号：" + teacher.getId() +
                 "，教师姓名： " + teacher.getName());
     }
+
+    public void addNewStudent() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("请输入新增学生信息（格式：姓名,年龄,性别）");
+        String studentInfo = scanner.nextLine();
+        String[] studentDetails = studentInfo.split(",");
+        userService.addNewStudent(studentDetails[0], Integer.parseInt(studentDetails[1]), studentDetails[2]);
+    }
+
+    public void addNewSubject() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("请输入新增课程信息（格式：课程名,授课教师编号）");
+        String subjectInfo = scanner.nextLine();
+        String[] subjectDetails = subjectInfo.split(",");
+        userService.addNewSubject(subjectDetails[0], Integer.parseInt(subjectDetails[1]));
+    }
+
 }

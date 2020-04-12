@@ -5,6 +5,7 @@ import entities.Grade;
 import entities.Student;
 import entities.Subject;
 import entities.Teacher;
+import userRepository.AddHandler;
 import userRepository.QueryHandler;
 
 import java.util.ArrayList;
@@ -69,5 +70,13 @@ public class UserService {
 
     public Teacher getTeacherByName(String name) {
         return QueryHandler.getTeacherByName(name);
+    }
+
+    public void addNewStudent(String name, int age, String gender) {
+        AddHandler.addNewStudent(new Student(0, name, age, gender));
+    }
+
+    public void addNewSubject(String name, int teacherId) {
+        AddHandler.addNewSubject(new Subject(0, name, teacherId));
     }
 }
