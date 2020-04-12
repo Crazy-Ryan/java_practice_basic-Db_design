@@ -1,6 +1,5 @@
 package userRepository;
 
-import entities.Grade;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

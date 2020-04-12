@@ -1,6 +1,5 @@
 package userRepository;
 
-import entities.Student;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

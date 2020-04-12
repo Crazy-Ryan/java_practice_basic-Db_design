@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Set;
 
 public class UserService {
@@ -75,12 +74,14 @@ public class UserService {
         return QueryHandler.getTeacherByName(name);
     }
 
-    public void addNewStudent(String name, int age, String gender) {
+    public Student addNewStudent(String name, int age, String gender) {
         AddHandler.addNewStudent(new Student(0, name, age, gender));
+        return QueryHandler.getStudentByName(name);
     }
 
-    public void addNewSubject(String name, int teacherId) {
+    public Subject addNewSubject(String name, int teacherId) {
         AddHandler.addNewSubject(new Subject(0, name, teacherId));
+        return QueryHandler.getSubjectByName(name);
     }
 
     public void updateGrade(String studentName, String subjectName, int score) {

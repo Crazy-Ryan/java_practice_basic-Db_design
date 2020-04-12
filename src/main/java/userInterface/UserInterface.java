@@ -44,12 +44,12 @@ public class UserInterface {
         String choiceStr = scanner.nextLine();
         String[] choiceArr = choiceStr.split("\\.");
         int[] choiceInfo = new int[choiceArr.length];
-        for(int index=0;index<choiceArr.length;index++){
+        for (int index = 0; index < choiceArr.length; index++) {
             choiceInfo[index] = Integer.parseInt(choiceArr[index]);
         }
         switch (choiceInfo[0]) {
             case 1:
-                queryHandle(choiceInfo[1],choiceInfo[2]);
+                queryHandle(choiceInfo[1], choiceInfo[2]);
                 break;
             case 2:
                 addHandle(choiceInfo[1]);
@@ -63,8 +63,8 @@ public class UserInterface {
         }
     }
 
-    private void queryHandle(int choice1, int choice2){
-        switch (choice1){
+    private void queryHandle(int choice1, int choice2) {
+        switch (choice1) {
             case 1:
                 queryStudentHandle(choice2);
                 break;
@@ -78,60 +78,76 @@ public class UserInterface {
         }
     }
 
-    private void queryStudentHandle(int choice){
-        switch (choice){
+    private void queryStudentHandle(int choice) {
+        switch (choice) {
             case 1:
+                getAllStudents();
                 break;
             case 2:
+                getStudentGradeSubjectByStudentName();
                 break;
             case 3:
+                getStudentGradeSubjectByTeacherName();
                 break;
             default:
         }
     }
 
-    private void querySubjectHandle(int choice){
-        switch (choice){
+    private void querySubjectHandle(int choice) {
+        switch (choice) {
             case 1:
+                getAllSubjects();
                 break;
             case 2:
+                getSubjectByName();
                 break;
             case 3:
-                break;
-            default:
-        }
-    }
-    private void queryTeacherHandle(int choice){
-        switch (choice){
-            case 1:
-                break;
-            case 2:
+                getSubjectsByTeacherName();
                 break;
             default:
         }
     }
 
-    private void addHandle(int choice){
-        switch (choice){
+    private void queryTeacherHandle(int choice) {
+        switch (choice) {
             case 1:
+                getAllTeachers();
                 break;
             case 2:
+                getTeacherByName();
                 break;
             default:
         }
     }
 
-    private void updateHandle(int choice){
-        if(1 == choice){
-            ;
+    private void addHandle(int choice) {
+        switch (choice) {
+            case 1:
+                addNewStudent();
+                break;
+            case 2:
+                addNewSubject();
+                break;
+            default:
         }
     }
 
-    private void deleteHandle(int choice){
-        switch (choice){
+    private void updateHandle(int choice) {
+        if (1 == choice) {
+            updateGrade();
+        }
+    }
+
+    private void deleteHandle(int choice) {
+        switch (choice) {
             case 1:
+                deleteStudentById();
                 break;
             case 2:
+                deleteSubjectById();
+                break;
+            case 3:
+                deleteTeacherById();
                 break;
             default:
         }
@@ -178,7 +194,15 @@ public class UserInterface {
         }
     }
 
+    public void getStudentGradeSubjectByStudentName() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(" 请输入学生姓名：");
+        String name = scanner.nextLine();
+        getStudentGradeSubjectByStudentName(name);
+    }
+
     public void getStudentGradeSubjectByStudentName(String name) {
+
         Map<EntityType, Object> studentGradeSubject = userService.getStudentGradeSubjectByStudentName(name);
         Student student = (Student) studentGradeSubject.get(EntityType.STUDENT);
         System.out.println("学号：" + student.getId() +
@@ -192,7 +216,10 @@ public class UserInterface {
         }
     }
 
-    public void getStudentGradeSubjectByTeacherName(String name) {
+    public void getStudentGradeSubjectByTeacherName() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(" 请输入教师姓名：");
+        String name = scanner.nextLine();
         Map<EntityType, Object> teacherStudents = userService.getStudentsByTeacherName(name);
         List<Student> students = (List<Student>) teacherStudents.get(EntityType.STUDENT_LIST);
         System.out.println(name + "的所有学生信息及各学生成绩为");
@@ -210,14 +237,20 @@ public class UserInterface {
         }
     }
 
-    public void getSubjectByName(String name) {
+    public void getSubjectByName() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(" 请输入课程名称：");
+        String name = scanner.nextLine();
         Subject subject = userService.getSubjectByName(name);
         System.out.println("课程编号：" + subject.getId() +
                 "，课程名： " + subject.getName() +
                 ", 教师编号： " + subject.getTeacherId());
     }
 
-    public void getSubjectsByTeacherName(String name) {
+    public void getSubjectsByTeacherName() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(" 请输入教师姓名：");
+        String name = scanner.nextLine();
         List<Subject> allSubjects = userService.getSubjectByTeacherName(name);
         for (Subject subject : allSubjects) {
             System.out.println("课程编号：" + subject.getId() +
@@ -234,7 +267,10 @@ public class UserInterface {
         }
     }
 
-    public void getTeacherByName(String name) {
+    public void getTeacherByName() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(" 请输入教师姓名：");
+        String name = scanner.nextLine();
         Teacher teacher = userService.getTeacherByName(name);
         System.out.println("教师编号：" + teacher.getId() +
                 "，教师姓名： " + teacher.getName());
@@ -245,7 +281,10 @@ public class UserInterface {
         System.out.println("请输入新增学生信息（格式：姓名,年龄,性别）");
         String studentInfo = scanner.nextLine();
         String[] studentDetails = studentInfo.split(",");
-        userService.addNewStudent(studentDetails[0], Integer.parseInt(studentDetails[1]), studentDetails[2]);
+        Student student = userService.addNewStudent(studentDetails[0], Integer.parseInt(studentDetails[1]), studentDetails[2]);
+        if (0 != student.getId()) {
+            System.out.println("添加学生" + student.getName() + "(学号：" + student.getId() + ")成功！");
+        }
     }
 
     public void addNewSubject() {
@@ -253,7 +292,10 @@ public class UserInterface {
         System.out.println("请输入新增课程信息（格式：课程名,授课教师编号）");
         String subjectInfo = scanner.nextLine();
         String[] subjectDetails = subjectInfo.split(",");
-        userService.addNewSubject(subjectDetails[0], Integer.parseInt(subjectDetails[1]));
+        Subject subject = userService.addNewSubject(subjectDetails[0], Integer.parseInt(subjectDetails[1]));
+        if (0 != subject.getId()) {
+            System.out.println("添加课程" + subject.getName() + "(课程编号：" + subject.getId() + ")成功！");
+        }
     }
 
     public void updateGrade() {
