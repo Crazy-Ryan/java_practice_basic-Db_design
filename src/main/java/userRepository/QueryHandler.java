@@ -335,6 +335,30 @@ public class QueryHandler {
         return teacher;
     }
 
+    public static Teacher getTeacherById(int id) {
+        Connection connection = DatabaseUtil.connectToDB();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Teacher teacher = new Teacher();
+        try {
+            String sqlQuery = "SELECT " +
+                    "teacher_id,teacher_name" +
+                    " FROM teacher WHERE teacher_id = ?";
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, id);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                teacher = new Teacher(
+                        resultSet.getInt("teacher_id"),
+                        resultSet.getString("teacher_name"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseUtil.releaseSource(connection, preparedStatement, resultSet);
+        }
+        return teacher;
+    }
 
 }
 

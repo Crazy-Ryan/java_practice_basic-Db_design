@@ -83,15 +83,27 @@ public class UserService {
         AddHandler.addNewSubject(new Subject(0, name, teacherId));
     }
 
-    public void updateGrade(String studentName,String subjectName,int score){
+    public void updateGrade(String studentName, String subjectName, int score) {
         Student student = QueryHandler.getStudentByName(studentName);
         Subject subject = QueryHandler.getSubjectByName(subjectName);
-        UpdateHandler.updateGradeByStudentIdAndSubject(student.getId(),subject.getId(),score);
+        UpdateHandler.updateGradeByStudentIdAndSubject(student.getId(), subject.getId(), score);
     }
 
-    public Student deleteStudentById(int id){
+    public Student deleteStudentById(int id) {
         Student student = QueryHandler.getStudentById(id);
         DeleteHandler.deleteStudentById(id);
         return student;
+    }
+
+    public Subject deleteSubjectById(int id) {
+        Subject subject = QueryHandler.getSubjectById(id);
+        DeleteHandler.deleteSubjectById(id);
+        return subject;
+    }
+
+    public Teacher deleteTeacherById(int id) {
+        Teacher teacher = QueryHandler.getTeacherById(id);
+        DeleteHandler.deleteStudentById(id);
+        return teacher;
     }
 }

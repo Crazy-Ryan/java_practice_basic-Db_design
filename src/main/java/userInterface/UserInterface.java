@@ -161,5 +161,31 @@ public class UserInterface {
             System.out.println("删除学生" + student.getName() + "(学号：" + student.getId() + ")成功！");
         }
     }
+    public void deleteSubjectById() {
+        System.out.println("请输入您需要删除的课程编号：");
+        Scanner scanner = new Scanner(System.in);
+        int id = scanner.nextInt();
+        System.out.println("删除课程之后，该课程信息将不能恢复，是否要继续删除？");
+        System.out.println("1.是");
+        System.out.println("2.否");
+        int choice = scanner.nextInt();
+        if(1 == choice){
+            Subject subject = userService.deleteSubjectById(id);
+            System.out.println("删除课程" + subject.getName() + "(课程编号：" + subject.getId() + ")成功！");
+        }
+    }
+    public void deleteTeacherById() {
+        System.out.println("请输入您需要删除的教师编号：");
+        Scanner scanner = new Scanner(System.in);
+        int id = scanner.nextInt();
+        System.out.println("删除教师之后，该教师信息将不能恢复，是否要继续删除？");
+        System.out.println("1.是");
+        System.out.println("2.否");
+        int choice = scanner.nextInt();
+        if(1 == choice){
+            Teacher teacher = userService.deleteTeacherById(id);
+            System.out.println("删除教师" + teacher.getName() + "(学号：" + teacher.getId() + ")成功！");
+        }
+    }
 
 }
