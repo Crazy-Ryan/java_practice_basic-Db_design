@@ -7,6 +7,9 @@ public class Subject {
     private String name;
     private int teacherId;
 
+    public Subject() {
+    }
+
     public Subject(int id, String name, int teacherId) {
         this.id = id;
         this.name = name;

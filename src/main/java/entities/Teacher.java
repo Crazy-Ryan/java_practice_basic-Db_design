@@ -4,9 +4,12 @@ import java.util.Objects;
 
 public class Teacher {
     private int id;
-    private int name;
+    private String name;
 
-    public Teacher(int id, int name) {
+    public Teacher() {
+    }
+
+    public Teacher(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -15,7 +18,7 @@ public class Teacher {
         return id;
     }
 
-    public int getName() {
+    public String getName() {
         return name;
     }
 
